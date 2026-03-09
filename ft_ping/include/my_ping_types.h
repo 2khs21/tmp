@@ -1,0 +1,77 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   my_ping_types.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyunsoo <hyunsoo@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/06 14:00:44 by hyunsoo           #+#    #+#             */
+/*   Updated: 2026/03/06 14:00:45 by hyunsoo          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MY_PING_TYPES_H
+# define MY_PING_TYPES_H
+
+# include <netinet/in.h>
+
+typedef struct s_opts
+{
+	int				verbose;
+	int				help;
+	int				size;
+	int				count;
+	double			interval;
+	unsigned char	pattern[16];
+	int				pattern_len;
+	int				ttl;
+	int				tos;
+}	t_opts;
+
+typedef struct s_stats
+{
+	int		sent;
+	int		received;
+	double	min;
+	double	max;
+	double	sum;
+	double	sum_sq;
+}	t_stats;
+
+typedef struct s_ping
+{
+	char				*host;
+	t_opts				opts;
+	int					sockfd;
+	struct sockaddr_in	addr;
+	char				ip_str[INET_ADDRSTRLEN];
+	t_stats				stats;
+}	t_ping;
+
+typedef int	(*t_opt_fn)(int argc, char **argv, int *i, t_ping *p);
+
+typedef struct s_opt_entry
+{
+	char		opt;
+	t_opt_fn	apply;
+}	t_opt_entry;
+
+typedef struct s_long_opt_entry
+{
+	char		*name;
+	t_opt_fn	apply;
+}	t_long_opt_entry;
+
+typedef struct s_recv_result
+{
+	int				seq;
+	int				ttl;
+	double			rtt;
+	int				type;
+	int				code;
+	int				bytes;
+	unsigned char	*orig_ip;
+	char			from_ip[INET_ADDRSTRLEN];
+}	t_recv_result;
+
+#endif
