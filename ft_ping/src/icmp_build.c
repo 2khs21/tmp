@@ -6,7 +6,7 @@
 /*   By: hyunsoo <hyunsoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 13:58:41 by hyunsoo           #+#    #+#             */
-/*   Updated: 2026/03/06 14:00:24 by hyunsoo          ###   ########.fr       */
+/*   Updated: 2026/03/09 19:00:00 by hyunsoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	fill_pattern(unsigned char *buf, int len, t_ping *p)
 		if (plen > 0)
 			buf[i] = p->opts.pattern[i % plen];
 		else
-			buf[i] = 0;
+			buf[i] = (unsigned char)(i + 0x10);
 		i++;
 	}
 }
