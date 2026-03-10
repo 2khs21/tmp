@@ -6,7 +6,7 @@
 /*   By: hyunsoo <hyunsoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 13:58:35 by hyunsoo           #+#    #+#             */
-/*   Updated: 2026/03/06 14:00:33 by hyunsoo          ###   ########.fr       */
+/*   Updated: 2026/03/10 11:44:41 by hyunsoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	finalize_parse(t_ping *p)
 {
 	if (p->opts.help)
 	{
-		print_usage();
+		print_help();
 		return (0);
 	}
 	if (!p->host)

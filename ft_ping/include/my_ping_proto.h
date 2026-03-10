@@ -6,7 +6,7 @@
 /*   By: hyunsoo <hyunsoo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 14:00:42 by hyunsoo           #+#    #+#             */
-/*   Updated: 2026/03/06 14:16:30 by hyunsoo          ###   ########.fr       */
+/*   Updated: 2026/03/10 11:23:43 by hyunsoo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 int			parse_args(int argc, char **argv, t_ping *p);
 void		print_usage(void);
+void		print_help(void);
 
 int			dispatch_opt(int argc, char **argv, int *i, t_ping *p);
 
