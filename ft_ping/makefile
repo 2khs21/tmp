@@ -1,7 +1,7 @@
 NAME	=	ft_ping
 
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address
 DEPFLAGS=	-MMD -MP
 
 INC_DIR	=	include

@@ -14,6 +14,8 @@
 # define MY_PING_TYPES_H
 
 # include <netinet/in.h>
+# include <netinet/ip.h>
+# include "my_ping_icmp.h"
 
 typedef struct s_opts
 {
@@ -70,7 +72,8 @@ typedef struct s_recv_result
 	int				type;
 	int				code;
 	int				bytes;
-	unsigned char	*orig_ip;
+	struct ip		orig_ip_hdr;
+	t_icmp_hdr		orig_icmp_hdr;
 	char			from_ip[INET_ADDRSTRLEN];
 }	t_recv_result;
 

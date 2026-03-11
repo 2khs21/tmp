@@ -15,11 +15,13 @@
 #include <arpa/inet.h>
 #include <stdio.h>
 
-static void	print_ip_hex(unsigned char *ip_data)
+static void	print_ip_hex(struct ip *ip_hdr)
 {
-	int	i;
+	int				i;
+	unsigned char	*ip_data;
 
 	printf("IP Hdr Dump:\n ");
+	ip_data = (unsigned char *)ip_hdr;
 	i = 0;
 	while (i < IP_HDR_SIZE)
 	{
@@ -35,13 +37,11 @@ static void	print_ip_fields_header(void)
 	printf("      Src      Dst     Data\n");
 }
 
-static void	print_ip_fields(unsigned char *ip_data)
+static void	print_ip_fields(struct ip *ip_hdr)
 {
-	struct ip	*ip_hdr;
 	char		src[INET_ADDRSTRLEN];
 	char		dst[INET_ADDRSTRLEN];
 
-	ip_hdr = (struct ip *)ip_data;
 	inet_ntop(AF_INET, &ip_hdr->ip_src, src, INET_ADDRSTRLEN);
 	inet_ntop(AF_INET, &ip_hdr->ip_dst, dst, INET_ADDRSTRLEN);
 	printf(" %d  %d  %02x %04x %04x   %d %04x  %02x  %02x %04x %s  %s \n",
@@ -58,14 +58,10 @@ static void	print_ip_fields(unsigned char *ip_data)
 		src, dst);
 }
 
-static void	print_orig_icmp(unsigned char *ip_data)
+static void	print_orig_icmp(struct ip *ip_hdr, t_icmp_hdr *icmp)
 {
-	struct ip	*ip_hdr;
-	t_icmp_hdr	*icmp;
 	int			icmp_size;
 
-	ip_hdr = (struct ip *)ip_data;
-	icmp = (t_icmp_hdr *)(ip_data + IP_HDR_SIZE);
 	icmp_size = ntohs(ip_hdr->ip_len) - IP_HDR_SIZE;
 	printf("ICMP: type %d, code %d, size %d, id 0x%04x, seq 0x%04x\n",
 		icmp->type, icmp->code,
@@ -75,8 +71,8 @@ static void	print_orig_icmp(unsigned char *ip_data)
 
 void	print_verbose_error(t_recv_result *res)
 {
-	print_ip_hex(res->orig_ip);
+	print_ip_hex(&res->orig_ip_hdr);
 	print_ip_fields_header();
-	print_ip_fields(res->orig_ip);
-	print_orig_icmp(res->orig_ip);
+	print_ip_fields(&res->orig_ip_hdr);
+	print_orig_icmp(&res->orig_ip_hdr, &res->orig_icmp_hdr);
 }

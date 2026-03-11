@@ -66,7 +66,8 @@ static int	check_icmp_error\
 	res->seq = orig_icmp->seq;
 	res->ttl = ip_hdr->ip_ttl;
 	res->bytes = len - ip_hdr_len;
-	memcpy(res->orig_ip, orig_ip, IP_HDR_SIZE + ICMP_HDR_SIZE);
+	res->orig_ip_hdr = *orig_ip;
+	res->orig_icmp_hdr = *orig_icmp;
 	inet_ntop(AF_INET, &ip_hdr->ip_src, res->from_ip, INET_ADDRSTRLEN);
 	return (2);
 }
