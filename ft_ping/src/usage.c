@@ -16,7 +16,7 @@
 void	print_usage(void)
 {
 	fprintf(stderr, "Usage: my_ping [-v] [-?] [-c count] [-i interval] \
-[-p pattern] [-s size] [-T ttl] <host>\n");
+[-p pattern] [-s size] [-T tos] [--ttl ttl] <host>\n");
 }
 
 void	print_help(void)
